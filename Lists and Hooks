@@ -1,0 +1,116 @@
+==>> Explain Life cycle in Class Component and functional component with Hooks
+
+Class Component Lifecycle Methods
+Class components in React provide several lifecycle methods:
+
+Mounting: When a component is being inserted into the DOM.
+
+constructor(): Called before the component is mounted. Used for initializing state and binding methods.
+static getDerivedStateFromProps(props, state): Called right before rendering the element(s) in the DOM. Used to update state based on props.
+render(): The only required method in a class component. Returns the JSX to render.
+componentDidMount(): Called after the component is mounted. Used for initializing side-effects like data fetching.
+Updating: When a component is being re-rendered due to changes in props or state.
+
+static getDerivedStateFromProps(props, state): (see Mounting phase)
+shouldComponentUpdate(nextProps, nextState): Determines whether the component should re-render. Returns true or false.
+render(): (see Mounting phase)
+getSnapshotBeforeUpdate(prevProps, prevState): Called right before the most recently rendered output is committed to the DOM. Used to capture information (e.g., scroll position) from the DOM.
+componentDidUpdate(prevProps, prevState, snapshot): Called after the component has been updated. Used for performing side-effects based on previous props or state.
+Unmounting: When a component is being removed from the DOM.
+
+componentWillUnmount(): Called before the component is unmounted and destroyed. Used for cleanup (e.g., removing event listeners, canceling network requests).
+Error Handling: When there is an error during rendering, in a lifecycle method, or in the constructor.
+
+static getDerivedStateFromError(error): Used to update state so the next render shows an error boundary.
+componentDidCatch(error, info): Used to log error information.
+Here's a simple example of a class component utilizing lifecycle methods:
+
+import React, { Component } from 'react';
+
+class MyComponent extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { count: 0 };
+    console.log('Constructor');
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    console.log('getDerivedStateFromProps');
+    return null;
+  }
+
+  componentDidMount() {
+    console.log('componentDidMount');
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log('shouldComponentUpdate');
+    return true;
+  }
+
+  getSnapshotBeforeUpdate(prevProps, prevState) {
+    console.log('getSnapshotBeforeUpdate');
+    return null;
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    console.log('componentDidUpdate');
+  }
+
+  componentWillUnmount() {
+    console.log('componentWillUnmount');
+  }
+
+  render() {
+    console.log('Render');
+    return (
+      <div>
+        <p>Count: {this.state.count}</p>
+        <button onClick={() => this.setState({ count: this.state.count + 1 })}>
+          Increment
+        </button>
+      </div>
+    );
+  }
+}
+
+export default MyComponent;
+Functional Component Lifecycle with Hooks
+Functional components use hooks to manage lifecycle events. Here are the main hooks:
+
+Mounting and Updating:
+
+useState(initialState): Initializes state.
+useEffect(callback, dependencies): Manages side-effects. The callback runs after the component renders. Dependencies array controls when the effect runs.
+Unmounting:
+
+Cleanup function within useEffect runs when the component unmounts.
+Error Handling:
+
+There are no direct hooks for error boundaries, but error boundaries can be implemented using class components or higher-order components.
+Here's an example of a functional component using hooks to handle lifecycle events:
+
+import React, { useState, useEffect } from 'react';
+
+const MyComponent = () => {
+  const [count, setCount] = useState(0);
+
+  // useEffect for mounting and updating
+  useEffect(() => {
+    console.log('Component mounted or updated');
+    return () => {
+      console.log('Component will unmount');
+    };
+  }, [count]); // Dependency array
+
+  console.log('Render');
+
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={() => setCount(count + 1)}>Increment</button>
+    </div>
+  );
+};
+
+export default MyComponent;
