@@ -1,0 +1,208 @@
+1>  How to check version of React Js?
+
+-> Check package.json file: Look for react and react-dom under dependencies.
+-> Use command line: Run npm list react or yarn list react.
+-> In a JavaScript file: Log React.version.
+
+
+2> How to change in components of React Js?
+
+->Changing components in React.js involves understanding how React components are structured and how they function. Here’s a step-by-step guide on how to modify existing React components:
+
+  1. Locate the Component
+  First, identify the component you want to modify. React components are usually found in .js or .jsx files within your project directory.
+
+  2. Open the Component File
+  Open the file in your code editor. For instance, if your component is named MyComponent, you might find it in src/components/MyComponent.js.
+
+  3. Modify the Component
+  Here are common types of modifications you might want to make:
+
+  => Changing JSX
+  The JSX (JavaScript XML) syntax inside the render method (for class components) or the return statement (for function components) defines what the component renders.
+
+
+// Before
+return (
+  <div>
+    <h1>Hello, World!</h1>
+  </div>
+);
+
+// After
+return (
+  <div>
+    <h1>Hello, React!</h1>
+  </div>
+);
+
+
+3> How to Create a List View in React Js?
+Step 1: Set Up Your React Project
+If you haven't already set up a React project, you can create one using Create React App:
+
+npx create-react-app my-list-app
+cd my-list-app
+npm start
+This will create a new React application and start the development server.
+
+Step 2: Create the List Component
+Create a new component that will render the list view. For this example, we'll create a component called ItemList.
+
+Create a new file ItemList.js in the src directory.
+Open ItemList.js and define the component:
+
+import React from 'react';
+
+const ItemList = ({ items }) => {
+  return (
+    <ul>
+      {items.map((item, index) => (
+        <li key={index}>{item}</li>
+      ))}
+    </ul>
+  );
+};
+
+export default ItemList;
+In this code:
+
+We import React.
+We define a functional component ItemList that takes items as a prop.
+We use the map function to iterate over the items array and render each item as a list item (<li>).
+We use the key attribute to give each list item a unique identifier, which helps React efficiently update and render lists.
+Step 3: Use the List Component in App.js
+Now, we will use the ItemList component in the main App component.
+
+Open src/App.js.
+Import the ItemList component and pass an array of items to it.
+
+import React from 'react';
+import './App.css';
+import ItemList from './ItemList';
+
+function App() {
+  const items = ['Apple', 'Banana', 'Cherry', 'Date', 'Elderberry'];
+
+  return (
+    <div className="App">
+      <h1>Fruit List</h1>
+      <ItemList items={items} />
+    </div>
+  );
+}
+
+export default App;
+Step 4: Style the List (Optional)
+You can add some basic styling to the list in App.css:
+
+CSS
+.App {
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+li:last-child {
+  border-bottom: none;
+}
+Step 5: Run the Application
+Make sure your development server is running. If it isn't, you can start it with:
+
+
+npm start
+Open your browser and navigate to http://localhost:8000. You should see your list of items displayed on the page.
+
+
+
+4> Create Increment decrement state change by button click?
+
+
+Create the Counter Component
+Create a new component that will handle the increment and decrement functionality. We'll name this component Counter.
+
+Create a new file Counter.js in the src directory.
+Open Counter.js and define the component:
+
+import React, { useState } from 'react';
+
+const Counter = () => {
+  // Declare a state variable named "count" with initial value 0
+  const [count, setCount] = useState(0);
+
+  // Function to handle increment
+  const increment = () => {
+    setCount(count + 1);
+  };
+
+  // Function to handle decrement
+  const decrement = () => {
+    setCount(count - 1);
+  };
+
+  return (
+    <div>
+      <h1>Counter: {count}</h1>
+      <button onClick={increment}>Increment</button>
+      <button onClick={decrement}>Decrement</button>
+    </div>
+  );
+};
+
+export default Counter;
+In this code:
+
+We import useState from React to manage the state.
+We declare a state variable count with an initial value of 0.
+We define two functions, increment and decrement, to update the count state.
+We return JSX that displays the current count and two buttons to increment and decrement the count.
+Step 3: Use the Counter Component in App.js
+Now, we will use the Counter component in the main App component.
+
+Open src/App.js.
+Import the Counter component and use it inside the App component.
+
+import React from 'react';
+import './App.css';
+import Counter from './Counter';
+
+function App() {
+  return (
+    <div className="App">
+      <h1>Simple Counter</h1>
+      <Counter />
+    </div>
+  );
+}
+
+export default App;
+Step 4: Style the Counter (Optional)
+You can add some basic styling to the counter in App.css:
+
+css
+
+.App {
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+button {
+  margin: 5px;
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+Step 5: Run the Application
+Make sure your development server is running. If it isn't, you can start it with:
+
+
+npm start
